@@ -26,13 +26,20 @@ app.get('/', function(req, res){
   })
 });
 
+app.get('/tasks', function(req, res){
+  Task.find(function (err, tasks) {
+    if (err) return console.error(err);
+    res.json(tasks);
+  })
+});
+
 app.get('/tasks/new', function(req, res){
   res.render('tasks/new');
 });
 
 app.post('/tasks', function(req, res){
   new Task(req.body).save();
-  res.redirect('/');
+  res.send(200);
 });
 
 app.put('/tasks/:id', function(req, res){
@@ -49,10 +56,8 @@ app.del('/tasks/:id', function(req, res){
 
   Task.remove({_id: id}, function(err){
     if (err) return handleError(err);
-    console.log('Task removed')
+    res.send(200);
   });
-
-  res.redirect('/');
 });
 
 var server = app.listen(3000, function() {

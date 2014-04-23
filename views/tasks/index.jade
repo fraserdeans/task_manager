@@ -1,22 +1,21 @@
 extends ../layout
 
 block content
-  h1 Tasks
+  div(ng-controller="TaskController")
+    h1 Tasks
 
-  ul
-    each task in tasks
-      li(data-task="#{task._id}")
-        input(type='checkbox', checked=task.complete, name="complete", data-input="task-complete")
-        = task.description
-        form(action="/tasks/#{task._id}" method="POST")
-          input(type="hidden" name="_method" value="delete")
-          input(type='submit' value="Remove")
+    ul
+      li(ng-repeat="task in tasks")
+        input(type='checkbox', name="complete", ng-model="task.complete", ng-change="taskComplete(task)")
+        span {{task.description}}
 
-  h2 Add task
+        button(ng-click="remove(task)") Remove
 
-  form(action="/tasks" method="post")
-    label Task description:
-    br
-    textarea(name="description")
-    br
-    input(type="submit" value="Add")
+    h2 Add task
+
+    form(ng-submit="add()")
+      label Task description:
+      br
+      textarea(name="description" ng-model="descriptionText")
+      br
+      input(type="submit" value="Add")

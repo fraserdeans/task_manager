@@ -1,0 +1,10 @@
+{
+  "name": "TaskManager",
+  "version": "1.0.0",
+  "main": "./app.js",
+  "dependencies": {
+    "jquery": "*",
+    "angular": "~1.2.16",
+    "angular-resource": "~1.2.16"
+  }
+}
